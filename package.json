@@ -1,8 +1,8 @@
 {
   "name": "leaflet-view",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Leaflet backbone view wrapper (requires leaflet)",
-  "repository":{
+  "repository": {
     "type": "git",
     "url": "git@github.com:tahoang/leaflet-view.git"
   },
