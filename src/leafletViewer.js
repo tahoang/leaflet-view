@@ -7,7 +7,7 @@ Note: this class is defined using dx library
 implements leaflet API 
 operates foodshed application
 */
-import MapViewer from './mapviewer.js';
+import MapViewer from './mapViewer.js';
 
 export default class LeafletViewer extends MapViewer{
     
