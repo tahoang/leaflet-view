@@ -27,6 +27,7 @@
     "webpack": "^2.3.2"
   },
   "dependencies": {
-    "leaflet": "^1.0.3"
+    "leaflet": "^1.0.3",
+    "leaflet.markercluster": "^1.0.4"
   }
 }
