@@ -43,4 +43,4 @@ var MapViewer = class {
 
 };
 
-module.exports = MapViewer;
+export default MapViewer;
