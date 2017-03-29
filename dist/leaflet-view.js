@@ -73,31 +73,35 @@
 "use strict";
 
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Author: Tu Hoang
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ESRGC2017
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     View Map
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     base map view using backbone.js
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     element: '.map'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     render basic map for dashboards
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Requires leaflet.js
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Events 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     onMapLoaded --fired when map is done initialized
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     onLayerChanged -- fired when new data is loaded to geojson
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     onGeomSelected -- fired when mouse clicked layer (geometry)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     onFeatureMouseover -- fired when mouse is over a layer (geometry)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     onFeatureMouseout -- fired when mouse is out of a layer (geometry)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     setMapClickMode -- set selection mode (single or multi)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
+
+
+var _leafletViewer = __webpack_require__(2);
+
+var _leafletViewer2 = _interopRequireDefault(_leafletViewer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/*
-Author: Tu Hoang
-ESRGC2017
-
-View Map
-base map view using backbone.js
-element: '.map'
-render basic map for dashboards
-
-Requires leaflet.js
-
-Events 
-onMapLoaded --fired when map is done initialized
-onLayerChanged -- fired when new data is loaded to geojson
-onGeomSelected -- fired when mouse clicked layer (geometry)
-onFeatureMouseover -- fired when mouse is over a layer (geometry)
-onFeatureMouseout -- fired when mouse is out of a layer (geometry)
-
-setMapClickMode -- set selection mode (single or multi)
-*/
-var LeafletViewer = __webpack_require__(2);
 
 var map = function () {
   function map(options) {
@@ -148,7 +152,7 @@ var map = function () {
   }, {
     key: 'makeMap',
     value: function makeMap() {
-      this.mapViewer = new LeafletViewer({
+      this.mapViewer = new _leafletViewer2.default({
         el: this.el,
         center: new L.LatLng(38.3607, -75.5994), //salisbury coordinates
         zoomLevel: 10,
@@ -646,9 +650,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _mapviewer = __webpack_require__(3);
+var _mapViewer = __webpack_require__(3);
 
-var _mapviewer2 = _interopRequireDefault(_mapviewer);
+var _mapViewer2 = _interopRequireDefault(_mapViewer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -876,7 +880,7 @@ var LeafletViewer = function (_MapViewer) {
   }]);
 
   return LeafletViewer;
-}(_mapviewer2.default);
+}(_mapViewer2.default);
 
 exports.default = LeafletViewer;
 ;
@@ -902,13 +906,17 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _util = __webpack_require__(4);
 
+var _util2 = _interopRequireDefault(_util);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var MapViewer = function () {
   function MapViewer(options) {
     _classCallCheck(this, MapViewer);
 
-    (0, _util.copy)(this, options);
+    (0, _util2.default)(this, options);
   }
 
   _createClass(MapViewer, [{
@@ -998,7 +1006,7 @@ var copy = function copy(dest, source) {
   return dest;
 };
 
-exports.default = { copy: copy };
+exports.default = copy;
 
 /***/ })
 /******/ ]);

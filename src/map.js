@@ -18,7 +18,7 @@ onFeatureMouseout -- fired when mouse is out of a layer (geometry)
 
 setMapClickMode -- set selection mode (single or multi)
 */
-var LeafletViewer = require('./leafletViewer');
+import LeafletViewer from './leafletViewer.js';
 
 var map = class {
   constructor(options) {
@@ -550,4 +550,4 @@ var map = class {
   }
 };
 
-module.exports = map;
+export default map;

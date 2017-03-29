@@ -9,7 +9,7 @@ operates foodshed application
 */
 import MapViewer from './mapViewer.js';
 
-export default class LeafletViewer extends MapViewer{
+export default class LeafletViewer extends MapViewer {
     
   constructor (options) {
     super(options);
