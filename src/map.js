@@ -22,8 +22,9 @@ var LeafletViewer = require('./leafletViewer');
 
 var map = class {
   constructor(options) {
+    this.el = options.el;
     this.name = 'mapWrapper';
-    this.mapData = [
+    this.mapData = options.mapData || [
       //defined in sub-classes
       // For example
       // {
