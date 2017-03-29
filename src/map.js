@@ -18,9 +18,12 @@ onFeatureMouseout -- fired when mouse is out of a layer (geometry)
 
 setMapClickMode -- set selection mode (single or multi)
 */
-import LeafletViewer from './leafletViewer.js';
-import '~/leaflet.markercluster/dist/MarkerCluster.css';
+//leaflet library
+
+import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster';
+
+import LeafletViewer from './leafletViewer.js';
 
 var map = class {
   constructor(options) {

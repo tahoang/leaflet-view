@@ -8,6 +8,7 @@ implements leaflet API
 operates foodshed application
 */
 import MapViewer from './mapViewer.js';
+import L from 'leaflet';
 
 export default class LeafletViewer extends MapViewer {
     

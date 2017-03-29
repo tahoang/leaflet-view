@@ -7,6 +7,7 @@ This class implement leaflet API
 */
 
 import copy from './util.js';
+import L from 'leaflet';
 
 var MapViewer = class {
   constructor(options) {
