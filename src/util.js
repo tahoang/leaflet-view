@@ -29,4 +29,4 @@ var copy = function(dest, source) {
   return dest;
 };
 
-export default {copy: copy};
+export default copy;

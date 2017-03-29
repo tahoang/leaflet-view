@@ -6,7 +6,7 @@ Provides base (prototype) functions for mapviewer
 This class implement leaflet API
 */
 
-import {copy} from './util.js';
+import copy from './util.js';
 
 var MapViewer = class {
   constructor(options) {
