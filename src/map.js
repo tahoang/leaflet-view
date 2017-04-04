@@ -72,7 +72,7 @@ var map = class {
   }
 
   makeMap() {
-    var center = typeof this.center == 'undefined' ? 
+    var center = typeof this.center == 'undefined' ?
       new L.LatLng(38.3607, -75.5994) : new L.LatLng(this.center.y, this.center.x);;
 
     this.mapViewer = new LeafletViewer({
@@ -144,9 +144,9 @@ var map = class {
           });
         } else { //if data is not a layer skip to the next one
           counter++;
-          if (counter < mapData.length) { //load more if exists
-            this.loadData(mapData[counter]);
-          } else {
+          if (counter < mapData.length) //load more if exists
+            loadData(mapData[counter]);
+          else {
 
             scope.mapDataLoaded = true;
             //show the state layer by default
