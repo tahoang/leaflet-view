@@ -432,7 +432,7 @@ var map = class {
   updateHoverText() {
     var title = this.getGeomName();
     //show text on the hover box
-    this.$('#hoverOverlay').text(title);
+    $('#hoverOverlay').text(title);
   }
 
   getCurrentParams() {
