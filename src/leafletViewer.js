@@ -55,6 +55,7 @@ export default class LeafletViewer extends MapViewer {
       scrollWheelZoom: this.scrollZoom || false
     });
 
+    console.log('Map initialized. Zoom Level: ' + this.zoomLevel);
 
     //copy layers to layer controls
     if (typeof this.baseLayers != 'undefined')

@@ -6,12 +6,12 @@ Provides base (prototype) functions for mapviewer
 This class implement leaflet API
 */
 
-import copy from './util.js';
+// import copy from './util.js';
 import L from 'leaflet';
 
 var MapViewer = class {
   constructor(options) {
-    copy(this, options);
+    Object.assign(this, options);
   }
 
   zoomToExtent(extent) {
