@@ -308,7 +308,7 @@ var map = class {
           var prop = e.target.feature.properties;
           var area = prop.name || prop.region || prop[nameField] || '';
           //settext
-          scope.$('#hoverOverlay').text(area)
+          $('#hoverOverlay').text(area)
 
           if (typeof scope.onFeatureMouseover == 'function')
             scope.onFeatureMouseover(layer);
