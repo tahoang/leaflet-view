@@ -27,27 +27,29 @@ import LeafletViewer from './leafletViewer.js';
 
 var map = class {
   constructor(options) {
-    this.el = options.el;
-    this.name = 'mapWrapper';
-    this.mapData = options.mapData || [
-      //defined in sub-classes
-      // For example
-      // {
-      //   name: 'Region',
-      //   type: 'layer',
-      //   label: '',
-      //   url: 'data/mdRegion.geojson',
-      //   nameField: 'Regions',
-      //   style: {
-      //     fill: true,
-      //     weight: 1,
-      //     fillOpacity: 0.1,
-      //     fillColor: '#2163B5',
-      //     color: '#000'
-      //   },
-      //   selected: true
-      // }
-    ]; //specified geojson layers (in sub views)
+    // this.el = options.el;
+    Object.assign(this, options);
+    this.name = 'MapWrapper';
+    if (typeof this.mapData === 'undefined')
+      this.mapData = [
+        //defined in sub-classes
+        // For example
+        // {
+        //   name: 'Region',
+        //   type: 'layer',
+        //   label: '',
+        //   url: 'data/mdRegion.geojson',
+        //   nameField: 'Regions',
+        //   style: {
+        //     fill: true,
+        //     weight: 1,
+        //     fillOpacity: 0.1,
+        //     fillColor: '#2163B5',
+        //     color: '#000'
+        //   },
+        //   selected: true
+        // }
+      ]; //specified geojson layers (in sub views)
     this.mapDataLoaded = false;
     this.selectedLayer = 'County'; //geometry type "County" or "Region"
     this.selectedFeature = null;
@@ -70,9 +72,12 @@ var map = class {
   }
 
   makeMap() {
+    var center = typeof this.center == 'undefined' ? 
+      new L.LatLng(38.3607, -75.5994) : new L.LatLng(this.center.y, this.center.x);;
+
     this.mapViewer = new LeafletViewer({
       el: this.el,
-      center: new L.LatLng(38.3607, -75.5994), //salisbury coordinates
+      center: center, //salisbury coordinates
       zoomLevel: 10,
       scrollZoom: true,
       clusterOptions: {
@@ -525,7 +530,7 @@ var map = class {
     mapViewer.clearClusterMarkers(); //clear current clustermakers
   }
 
-  setShowMarkers (value) {
+  setShowMarkers(value) {
     this.showMarkers = value;
     if (!value)
       this.clearClusterMarkers();
@@ -540,7 +545,7 @@ var map = class {
       y: lat
     }, lvl);
   }
-  
+
   setMapClickMode(mode) {
     if (mode == 'single')
       this.singleSelect = true;

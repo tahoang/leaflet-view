@@ -13375,9 +13375,10 @@ var map = function () {
   function map(options) {
     _classCallCheck(this, map);
 
-    this.el = options.el;
-    this.name = 'mapWrapper';
-    this.mapData = options.mapData || [
+    // this.el = options.el;
+    Object.assign(this, options);
+    this.name = 'MapWrapper';
+    if (typeof this.mapData === 'undefined') this.mapData = [
       //defined in sub-classes
       // For example
       // {
@@ -13420,9 +13421,11 @@ var map = function () {
   }, {
     key: 'makeMap',
     value: function makeMap() {
+      var center = typeof this.center == 'undefined' ? new L.LatLng(38.3607, -75.5994) : new L.LatLng(this.center.y, this.center.x);;
+
       this.mapViewer = new _leafletViewer2.default({
         el: this.el,
-        center: new L.LatLng(38.3607, -75.5994), //salisbury coordinates
+        center: center, //salisbury coordinates
         zoomLevel: 10,
         scrollZoom: true,
         clusterOptions: {
