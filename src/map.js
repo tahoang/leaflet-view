@@ -78,7 +78,7 @@ var map = class {
     this.mapViewer = new LeafletViewer({
       el: this.el,
       center: center, //salisbury coordinates
-      zoomLevel: 10,
+      zoomLevel: this.zoomLevel || 10,
       scrollZoom: true,
       clusterOptions: {
         showCoverageOnHover: false,
