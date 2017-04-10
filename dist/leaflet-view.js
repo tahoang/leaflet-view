@@ -13354,14 +13354,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      onGeomSelected -- fired when mouse clicked layer (geometry)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      onFeatureMouseover -- fired when mouse is over a layer (geometry)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      onFeatureMouseout -- fired when mouse is out of a layer (geometry)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     onMapMoveend --fired when map is moved to a new center
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      setMapClickMode -- set selection mode (single or multi)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 //leaflet library
 
-__webpack_require__(6);
+__webpack_require__(5);
 
-__webpack_require__(7);
+__webpack_require__(6);
 
 var _leafletViewer = __webpack_require__(3);
 
@@ -13421,12 +13422,14 @@ var map = function () {
   }, {
     key: 'makeMap',
     value: function makeMap() {
+      var _this = this;
+
       var center = typeof this.center == 'undefined' ? new L.LatLng(38.3607, -75.5994) : new L.LatLng(this.center.y, this.center.x);;
 
       this.mapViewer = new _leafletViewer2.default({
         el: this.el,
         center: center, //salisbury coordinates
-        zoomLevel: 10,
+        zoomLevel: this.zoomLevel || 10,
         scrollZoom: true,
         clusterOptions: {
           showCoverageOnHover: false,
@@ -13450,6 +13453,10 @@ var map = function () {
             });
           }
         }
+      });
+
+      this.mapViewer.Map.on('moveend', function (ev) {
+        if (typeof _this.onMapMoveend === 'function') _this.onMapMoveend.call(_this, ev);
       });
     }
   }, {
@@ -13495,10 +13502,8 @@ var map = function () {
         } else {
           //if data is not a layer skip to the next one
           counter++;
-          if (counter < mapData.length) {
-            //load more if exists
-            this.loadData(mapData[counter]);
-          } else {
+          if (counter < mapData.length) //load more if exists
+            loadData(mapData[counter]);else {
 
             scope.mapDataLoaded = true;
             //show the state layer by default
@@ -13649,7 +13654,7 @@ var map = function () {
             var prop = e.target.feature.properties;
             var area = prop.name || prop.region || prop[nameField] || '';
             //settext
-            scope.$('#hoverOverlay').text(area);
+            $('#hoverOverlay').text(area);
 
             if (typeof scope.onFeatureMouseover == 'function') scope.onFeatureMouseover(layer);
           });
@@ -13768,7 +13773,7 @@ var map = function () {
     value: function updateHoverText() {
       var title = this.getGeomName();
       //show text on the hover box
-      this.$('#hoverOverlay').text(title);
+      $('#hoverOverlay').text(title);
     }
   }, {
     key: 'getCurrentParams',
@@ -13882,6 +13887,11 @@ var map = function () {
         if (this.singleSelect) console.log('Map click mode is: Single selection');else console.log('Map click mode is: Multi selection');
       }
     }
+  }, {
+    key: 'getMapCenter',
+    value: function getMapCenter() {
+      return this.mapViewer.getMapCenter();
+    }
   }]);
 
   return map;
@@ -13939,10 +13949,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Author: Tu hoang
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ESRGC
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Provides base (prototype) functions for mapviewer
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Note: this class is defined using dx library
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                implements leaflet API 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               operates foodshed application
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
@@ -13986,6 +13994,8 @@ var LeafletViewer = function (_MapViewer) {
       zoom: _this.zoomLevel || 7,
       scrollWheelZoom: _this.scrollZoom || false
     });
+
+    console.log('Map initialized. Zoom Level: ' + _this.zoomLevel);
 
     //copy layers to layer controls
     if (typeof _this.baseLayers != 'undefined') for (var i in _this.baseLayers) {
@@ -14152,6 +14162,16 @@ var LeafletViewer = function (_MapViewer) {
 
       return inside;
     }
+  }, {
+    key: 'getMapCenter',
+    value: function getMapCenter() {
+      return this.map.getCenter();
+    }
+  }, {
+    key: 'Map',
+    get: function get() {
+      return this.map;
+    }
   }]);
 
   return LeafletViewer;
@@ -14179,9 +14199,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      This class implement leaflet API
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 
-var _util = __webpack_require__(5);
+// import copy from './util.js';
 
-var _util2 = _interopRequireDefault(_util);
 
 var _leaflet = __webpack_require__(0);
 
@@ -14195,7 +14214,7 @@ var MapViewer = function () {
   function MapViewer(options) {
     _classCallCheck(this, MapViewer);
 
-    (0, _util2.default)(this, options);
+    Object.assign(this, options);
   }
 
   _createClass(MapViewer, [{
@@ -14247,54 +14266,12 @@ exports.default = MapViewer;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-//copy object properties
-var copy = function copy(dest, source) {
-  dest = dest || {};
-  if (source) {
-    for (var property in source) {
-      var value = source[property];
-      if (value !== undefined) {
-        dest[property] = value;
-      }
-    }
-    /**
-     * IE doesn't include the toString property when iterating over an object's
-     * properties with the for(property in object) syntax.  Explicitly check if
-     * the source has its own toString property.
-     */
-    /*
-     * FF/Windows < 2.0.0.13 reports "Illegal operation on WrappedNative
-     * prototype object" when calling hawOwnProperty if the source object
-     * is an instance of window.Event.
-     */
-
-    var sourceIsEvt = typeof window.Event == "function" && source instanceof window.Event;
-
-    if (!sourceIsEvt && source.hasOwnProperty && source.hasOwnProperty("toString")) {
-      dest.toString = source.toString;
-    }
-  }
-  return dest;
-};
-
-exports.default = copy;
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /*
