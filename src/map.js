@@ -15,6 +15,7 @@ onLayerChanged -- fired when new data is loaded to geojson
 onGeomSelected -- fired when mouse clicked layer (geometry)
 onFeatureMouseover -- fired when mouse is over a layer (geometry)
 onFeatureMouseout -- fired when mouse is out of a layer (geometry)
+onMapMoveend --fired when map is moved to a new center
 
 setMapClickMode -- set selection mode (single or multi)
 */
@@ -102,6 +103,11 @@ var map = class {
           });
         }
       }
+    });
+
+    this.mapViewer.Map.on('moveend', (ev) => {
+      if(typeof this.onMapMoveend === 'function')
+        this.onMapMoveend.call(this, ev);
     });
   }
 

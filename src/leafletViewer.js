@@ -2,20 +2,18 @@
 Author: Tu hoang
 ESRGC
 Provides base (prototype) functions for mapviewer
-Note: this class is defined using dx library
 
 implements leaflet API 
-operates foodshed application
 */
 import MapViewer from './mapViewer.js';
 import L from 'leaflet';
 
 export default class LeafletViewer extends MapViewer {
-    
-  constructor (options) {
+
+  constructor(options) {
     super(options);
     var min_url = '';
-    if(typeof this.minimal == 'undefined')
+    if (typeof this.minimal == 'undefined')
       min_url = 'http://{s}.tiles.mapbox.com/v3/esrgc.map-y9awf40v/{z}/{x}/{y}.png';
     else
       min_url = this.minimal;
@@ -79,13 +77,13 @@ export default class LeafletViewer extends MapViewer {
     //L.control.layers(baseMaps, overlayMaps).addTo(this.map);
     //L.control.scale().addTo(this.map);
   }
-  getGeoJsonGroup () {
+  getGeoJsonGroup() {
     return this.geoJsonFeatures;
   }
-  getFeatureGroup () {
+  getFeatureGroup() {
     return this.features;
   }
-  addGeoJsonLayer (data, option) {
+  addGeoJsonLayer(data, option) {
     if (typeof data == 'undefined') {
       console.log('No data found')
       return;
@@ -101,12 +99,12 @@ export default class LeafletViewer extends MapViewer {
     console.log('------Data added to map');
   }
 
-  clearGeoJsonFeatures () {
+  clearGeoJsonFeatures() {
     if (this.geoJsonFeatures != 'undefined')
       this.geoJsonFeatures.clearLayers();
   }
 
-  addFeatureToFeatureGroup (feature) {
+  addFeatureToFeatureGroup(feature) {
     var features = this.features;
     if (typeof features == 'undefined') {
       console.log('No feature group found');
@@ -116,7 +114,7 @@ export default class LeafletViewer extends MapViewer {
       features.addLayer(feature);
   }
 
-  clearFeatures () {
+  clearFeatures() {
     var features = this.features;
     if (typeof features == 'undefined') {
       console.log('No feature group found');
@@ -125,32 +123,32 @@ export default class LeafletViewer extends MapViewer {
     features.clearLayers();
   }
 
-  createFeature (obj) {
+  createFeature(obj) {
     var wkt = new Wkt.Wkt();
     wkt.read(obj);
     var f = wkt.toObject();
     return f;
   }
 
-  createMarker (lat, lng, options) {
+  createMarker(lat, lng, options) {
     return L.marker(L.latLng(lat, lng), options);
   }
 
-  addClusterMarker (marker) {
+  addClusterMarker(marker) {
     if (typeof this.clusterGroup == 'undefined')
       return;
     this.clusterGroup.addLayer(marker);
   }
 
-  clearClusterMarkers () {
+  clearClusterMarkers() {
     this.clusterGroup.clearLayers();
   }
 
-  getClusterGroup (){
+  getClusterGroup() {
     return this.clusterGroup;
   }
 
-  getFeaturesBound () {
+  getFeaturesBound() {
     var features = this.features;
     if (typeof features == 'undefined') {
       console.log('No feature group found');
@@ -159,7 +157,7 @@ export default class LeafletViewer extends MapViewer {
     return features.getBounds();
   }
 
-  getGeoJsonFeaturesBound () {
+  getGeoJsonFeaturesBound() {
     var features = this.geoJsonFeatures;
     if (typeof features == 'undefined') {
       console.log('No geojson feature found');
@@ -168,19 +166,19 @@ export default class LeafletViewer extends MapViewer {
     return features.getBounds();
   }
 
-  zoomToFeatures () {
+  zoomToFeatures() {
     var bounds = this.getFeaturesBound();
     if (typeof bounds != 'undefined')
       this.map.fitBounds(bounds);
   }
 
-  zoomToGeoJsonFeatures () {
+  zoomToGeoJsonFeatures() {
     var bounds = this.getGeoJsonFeaturesBound();
     if (typeof bounds != 'undefined')
       this.map.fitBounds(bounds);
   }
 
-  zoomToPoint (point, zoom) {
+  zoomToPoint(point, zoom) {
     var z = zoom || this.map.getMaxZoom(); //default zoom
     if (typeof point.x != 'undefined' && typeof point.y != 'undefined') {
       var latlng = new L.LatLng(point.y, point.x);
@@ -190,7 +188,7 @@ export default class LeafletViewer extends MapViewer {
     }
   }
 
-  pointInPolygon (point, vs) {
+  pointInPolygon(point, vs) {
     // ray-casting algorithm based on
     // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
 
@@ -211,5 +209,7 @@ export default class LeafletViewer extends MapViewer {
     return inside;
   }
 
+  get Map() {
+    return this.map;
+  }
 };
-
