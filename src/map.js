@@ -566,7 +566,7 @@ var map = class {
   }
 
   getMapCenter() {
-    this.mapViewer.mapCenter;
+    this.mapViewer.getMapCenter();
   }
 };
 
