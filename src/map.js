@@ -564,6 +564,10 @@ var map = class {
         console.log('Map click mode is: Multi selection')
     }
   }
+
+  getMapCenter() {
+    this.mapViewer.mapCenter;
+  }
 };
 
 export default map;
