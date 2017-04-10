@@ -212,4 +212,7 @@ export default class LeafletViewer extends MapViewer {
   get Map() {
     return this.map;
   }
+  get mapCenter() {
+    return this.map.getCenter();
+  }
 };
