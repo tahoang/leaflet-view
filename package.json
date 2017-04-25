@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git@github.com:tahoang/leaflet-view.git"
   },
-  "main": "src/index.js",
+  "main": "dist/leaflet-view.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-dev": "webpack -w",
