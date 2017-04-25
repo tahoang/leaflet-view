@@ -2,4 +2,4 @@
 
 import map from './map.js';
 
-export default map;
+export default {map};

@@ -2,9 +2,8 @@
 Author: Tu Hoang
 ESRGC2017
 
-View Map
-base map view using backbone.js
-element: '.map'
+Map
+
 render basic map for dashboards
 
 Requires leaflet.js

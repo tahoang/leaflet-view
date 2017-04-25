@@ -1,12 +1,12 @@
 {
   "name": "leaflet-view",
-  "version": "1.0.20",
+  "version": "1.0.19",
   "description": "Leaflet backbone view wrapper (requires leaflet)",
   "repository": {
     "type": "git",
     "url": "git@github.com:tahoang/leaflet-view.git"
   },
-  "main": "dist/leaflet-view.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-dev": "webpack -w",
