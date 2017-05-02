@@ -53,7 +53,7 @@ var map = class {
       ]; //specified geojson layers (in sub views)
     this.mapDataLoaded = false;
     const selected = _.filter(this.mapData, (v, k) => v.selected);
-    this.selectedLayer = selected.name; //geometry type "County" or "Region"
+    this.selectedLayer = selected[0].name; //geometry type "County" or "Region"
     this.selectedFeature = null;
     this.selectedFeatureName = '';
     this.selectedLayers = [];
