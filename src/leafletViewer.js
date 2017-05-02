@@ -140,6 +140,15 @@ export default class LeafletViewer extends MapViewer {
     this.clusterGroup.addLayer(marker);
   }
 
+  addClusterGeoJson(data, options) {
+    if (typeof this.clusterGroup == 'undefined')
+      return;
+
+    var geojson = L.geoJson(data, options);
+
+    this.clusterGroup.addLayer(geojson);
+  }
+
   clearClusterMarkers() {
     this.clusterGroup.clearLayers();
   }
