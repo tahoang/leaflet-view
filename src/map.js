@@ -24,6 +24,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster';
 
 import LeafletViewer from './leafletViewer.js';
+import _ from 'lodash';
 
 var map = class {
   constructor(options) {
@@ -51,7 +52,7 @@ var map = class {
         // }
       ]; //specified geojson layers (in sub views)
     this.mapDataLoaded = false;
-    this.selectedLayer = 'County'; //geometry type "County" or "Region"
+    this.selectedLayer = _.filter(this.mapData, (v, k) => v.selected).name; //geometry type "County" or "Region"
     this.selectedFeature = null;
     this.selectedFeatureName = '';
     this.selectedLayers = [];
@@ -105,7 +106,7 @@ var map = class {
     });
 
     this.mapViewer.Map.on('moveend', (ev) => {
-      if(typeof this.onMapMoveend === 'function')
+      if (typeof this.onMapMoveend === 'function')
         this.onMapMoveend.call(this, ev);
     });
   }
