@@ -29,7 +29,8 @@ import _ from 'lodash';
 var map = class {
   constructor(options) {
     // this.el = options.el;
-    
+    //copy options to this object
+    Object.assign(this, options);
     this.name = 'MapWrapper';
     if (typeof this.mapData === 'undefined')
       this.mapData = [
@@ -57,12 +58,11 @@ var map = class {
     this.selectedFeature = null;
     this.selectedFeatureName = '';
     this.selectedLayers = [];
-    this.singleSelect = false;
+    this.singleSelect = typeof(this.singleSelect == 'undefined') ? false : this.singleSelect;
     this.mapParams = {};
     this.showMarkers = true;
     this.clusterMarkerCache = [];
-    //copy options to this object
-    Object.assign(this, options);
+    
 
     this.render();
 
