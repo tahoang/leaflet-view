@@ -29,7 +29,7 @@ import _ from 'lodash';
 var map = class {
   constructor(options) {
     // this.el = options.el;
-    Object.assign(this, options);
+    
     this.name = 'MapWrapper';
     if (typeof this.mapData === 'undefined')
       this.mapData = [
@@ -61,6 +61,8 @@ var map = class {
     this.mapParams = {};
     this.showMarkers = true;
     this.clusterMarkerCache = [];
+    //copy options to this object
+    Object.assign(this, options);
 
     this.render();
 
@@ -239,7 +241,7 @@ var map = class {
           //check whether the layer is currently selected
           for (var i = 0; i < scope.selectedLayers.length; i++) {
             var layer = scope.selectedLayers[i];
-            if (l.feature.properties.areacode == layer.feature.properties.areacode) {
+            if (_.isEqual(l.feature.properties, layer.feature.properties)) {
               index = i;
             }
           }
