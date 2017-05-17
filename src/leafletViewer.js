@@ -74,8 +74,11 @@ export default class LeafletViewer extends MapViewer {
         overlayMaps[i] = layer;
       }
     }
-    //L.control.layers(baseMaps, overlayMaps).addTo(this.map);
-    //L.control.scale().addTo(this.map);
+
+    if(this.layerControl)
+      L.control.layers(baseMaps, overlayMaps).addTo(this.map);
+    if(this.scale)
+      L.control.scale().addTo(this.map);
   }
   getGeoJsonGroup() {
     return this.geoJsonFeatures;
