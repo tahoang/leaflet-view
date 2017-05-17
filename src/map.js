@@ -571,6 +571,10 @@ var map = class {
   getMapCenter() {
     return this.mapViewer.getMapCenter();
   }
+
+  get Map () {
+    return this.mapViewer.Map;
+  }
 };
 
 export default map;
