@@ -26,7 +26,7 @@ import 'leaflet.markercluster';
 import LeafletViewer from './leafletViewer.js';
 import _ from 'lodash';
 
-var map = class {
+export default class {
   constructor(options) {
     // this.el = options.el;
     //copy options to this object
@@ -577,4 +577,4 @@ var map = class {
   }
 };
 
-export default map;
+
