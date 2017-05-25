@@ -12,12 +12,8 @@ export default class Choropleth {
 
   constructor(fieldName) { //field name used to calculate ranges
     var scope = this;
-    this.setFieldName(fieldName);
-    this.setColorTheme('green'); //default color theme
-  }
-  ///////////////////Thematic rendering////////////////////////////
-  get thematicObj() {
-    return {
+    
+    this._thematicObj = {
       fieldName: "", //attribute field used to calculate ranges
       currentClassification: "equalInterval",
       classRanges: {
@@ -35,47 +31,53 @@ export default class Choropleth {
       currentTheme: null,
       opacity: 0.8
     };
+    this.setFieldName(fieldName);
+    this.setColorTheme('green'); //default color theme
+  }
+  ///////////////////Thematic rendering////////////////////////////
+  get thematicObj() {
+    return this._thematicObj;
   }
 
   setNumOfClasses(num) {
     if (isFinite(num))
-      this.thematicObj.numClasses = num;
+      this._thematicObj.numClasses = num;
     else
       console.log('Thematic renderer could not set number of classes to ' + num);
   }
 
   setCustomColorTheme (theme) {
-    this.thematicObj.themes[theme.name] = theme.colors;
+    this._thematicObj.themes[theme.name] = theme.colors;
     this.setColorTheme(theme.name);
   }
 
   setOpacity (opacity) {
-    this.thematicObj.opacity = opacity;
+    this._thematicObj.opacity = opacity;
     //redraw
     this.redraw();
   }
 
   setFieldName (name) {
-    this.thematicObj.fieldName = name;
+    this._thematicObj.fieldName = name;
   }
 
   setColorTheme (theme) {
     if (typeof theme !== "undefined") {
-      this.thematicObj.currentTheme = this.thematicObj.themes[theme];
+      this._thematicObj.currentTheme = this._thematicObj.themes[theme];
       //redraw
       this.redraw();
     }
   }
 
   setClassification (classification) {
-    this.thematicObj.currentClassification = classification;
+    this._thematicObj.currentClassification = classification;
     //redraw
     this.redraw();
   }
 
   getColorIndex (value, ranges) {
-    var index = this.thematicObj.numClasses - 1;
-    for (var i = 0; i < this.thematicObj.numClasses - 1; i++) {
+    var index = this._thematicObj.numClasses - 1;
+    for (var i = 0; i < this._thematicObj.numClasses - 1; i++) {
       if ((Number(value) >= Number(ranges[i])) && (Number(value) < Number(ranges[(i + 1)]))){
        // console.log("Match" + value +" with "+ranges[i]);
         index = i;
@@ -88,17 +90,17 @@ export default class Choropleth {
   getColorString (value) {
     if(value == 0)
       return '#DCDCDC';//gray color for 0
-    var ranges = this.thematicObj.classRanges[this.thematicObj.currentClassification];
+    var ranges = this._thematicObj.classRanges[this._thematicObj.currentClassification];
     if (typeof ranges != 'undefined') {
       var colorIndex = this.getColorIndex(value, ranges);
       //console.log("CURRENT THEME");
-      //console.log(this.thematicObj.currentTheme);
-      return this.thematicObj.currentTheme[colorIndex];
+      //console.log(this._thematicObj.currentTheme);
+      return this._thematicObj.currentTheme[colorIndex];
     }
   }
 
   getOpacity () {
-    return this.thematicObj.opacity;
+    return this._thematicObj.opacity;
   }
   /*
   Calculate thematic ranges 
@@ -106,9 +108,9 @@ export default class Choropleth {
   data format: unwrapped
   */
   calculateThematicRanges (data) {
-      if (typeof this.thematicObj == 'undefined')
+      if (typeof this._thematicObj == 'undefined')
       return false;
-    var fieldName = this.thematicObj.fieldName;
+    var fieldName = this._thematicObj.fieldName;
     if (fieldName == "") {
       console.log("CalculateThematicRanges: fieldName is required to calculate ranges");
       return false;
@@ -123,8 +125,8 @@ export default class Choropleth {
    
    //console.log(valueArray);
      
-    if (valueArray.length < this.thematicObj.numClasses)
-      this.thematicObj.numClasses = valueArray.length;
+    if (valueArray.length < this._thematicObj.numClasses)
+      this._thematicObj.numClasses = valueArray.length;
       
     var minVal = valueArray[0],
       maxVal = _.max(valueArray);
@@ -133,25 +135,25 @@ export default class Choropleth {
     //calculate quantile rangegull
     var quantile = [];
     quantile.push(minVal);
-    var increment = Math.ceil(valueArray.length / this.thematicObj.numClasses);
+    var increment = Math.ceil(valueArray.length / this._thematicObj.numClasses);
     for (var i = increment; i < valueArray.length; i += increment) {
       quantile.push(valueArray[i]);
     }
     //calculate equal interval range assuming valueArray is in ascending order
     var equalInterval = [];
 
-    var step = Math.ceil(range / this.thematicObj.numClasses);
+    var step = Math.ceil(range / this._thematicObj.numClasses);
     //JOHN
     var rangeStartVal = Math.floor(minVal);
     equalInterval.push(rangeStartVal); //1st range start
-    for (var i = 1; i < this.thematicObj.numClasses; i++) {
+    for (var i = 1; i < this._thematicObj.numClasses; i++) {
       rangeStartVal += step;
       equalInterval.push(Math.ceil(rangeStartVal));
     }
 
-    this.thematicObj.classRanges.quantile = quantile;
-    this.thematicObj.classRanges.equalInterval = equalInterval;
-    this.thematicObj.calculated = true;
+    this._thematicObj.classRanges.quantile = quantile;
+    this._thematicObj.classRanges.equalInterval = equalInterval;
+    this._thematicObj.calculated = true;
     return true;
   }
   redraw () {
@@ -164,17 +166,17 @@ export default class Choropleth {
   //return legend data based on classification (quantile or equal interval)
   getLegendData (formatFn, classificationType) {
     if (typeof classificationType == 'undefined')
-      classificationType = this.thematicObj.currentClassification;
+      classificationType = this._thematicObj.currentClassification;
     if (typeof formatFn != 'function')
       formatFn = function(num) {
         return num;
       }
-    if (!this.thematicObj.calculated) {
+    if (!this._thematicObj.calculated) {
       console.log('Data has not been calculated. Legend can not be generated.')
       return;
     }
     var scope = this;
-    var ranges = this.thematicObj.classRanges[classificationType];
+    var ranges = this._thematicObj.classRanges[classificationType];
     if (typeof ranges == 'undefined') {
       console.log('Range data is undefined');
       return;
