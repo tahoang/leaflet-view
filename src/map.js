@@ -26,7 +26,7 @@ import 'leaflet.markercluster';
 import LeafletViewer from './leafletViewer.js';
 import _ from 'lodash';
 
-export default class {
+export default class LeafletWrapper {
   constructor(options) {
     // this.el = options.el;
     //copy options to this object
