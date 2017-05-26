@@ -76,8 +76,8 @@ export default class LeafletWrapper {
     if(typeof this.autoLoad == 'undefined')
       this.autoLoad = false;//auto load option
 
-    // if(this.autoLoad)
-      // this.render();
+    //render the map
+    this.render();
 
   }
 
