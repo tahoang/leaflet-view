@@ -17,6 +17,15 @@ onFeatureMouseout -- fired when mouse is out of a layer (geometry)
 onMapMoveend --fired when map is moved to a new center
 
 setMapClickMode -- set selection mode (single or multi)
+
+options:
+autoLoad -- auto load map data (geojson)
+mapData -- data array containing info to load geojson layers
+center
+zoomLevel
+singleSelect
+el -- element to draw map to
+
 */
 //leaflet library
 
@@ -54,7 +63,7 @@ export default class LeafletWrapper {
       ]; //specified geojson layers (in sub views)
     this.mapDataLoaded = false;
     const selected = _.filter(this.mapData, (v, k) => v.selected);
-    this.selectedLayer = selected[0].name; //geometry type "County" or "Region"
+    this.selectedLayer = selected.length > 0 ? selected[0].name : ''; //geometry type "County" or "Region"
     this.selectedFeature = null;
     this.selectedFeatureName = '';
     this.selectedLayers = [];
@@ -64,14 +73,18 @@ export default class LeafletWrapper {
     this.showMarkers = true;
     this.clusterMarkerCache = [];
     
+    if(typeof this.autoLoad == 'undefined')
+      this.autoLoad = false;//auto load option
 
-    this.render();
+    // if(this.autoLoad)
+      // this.render();
 
   }
 
   render(options) {
     this.makeMap(); //set up map
-    this.loadMapData(options); //load geometry       
+    if(this.autoLoad)
+      this.loadMapData(options); //load geometry       
     // this.renderControls(); //render layer controls
     console.log(this.name + ' has been initialized!')
   }
@@ -120,6 +133,7 @@ export default class LeafletWrapper {
       //use backbone model to load layer data
       var model = new Backbone.Model();
       var mapData = this.mapData;
+      if(mapData.length == 0) return;
       var counter = 0;
       var loadData = function(layer) {
         if (typeof layer == 'undefined') {
