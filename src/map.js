@@ -190,8 +190,8 @@ export default class LeafletWrapper {
     console.log("showing  layer " + name);
     var scope = this;
     var setInitialAreaType = false;
-    var layer = this.getLayer(name);
-    if (typeof layer == 'undefined')
+    var entry = this.getLayer(name);
+    if (typeof entry == 'undefined')
       return;
     scope.selectedLayer = name;
     scope.selectedFeatureName = '';
@@ -200,15 +200,15 @@ export default class LeafletWrapper {
     var title = scope.getGeomName();
     scope.updateHoverText();
     var mapViewer = this.mapViewer;
-    var newData = layer.data;
-    var nameField = layer.nameField; //name of the property that contains geom name
+    var newData = entry.data;
+    var nameField = entry.nameField; //name of the property that contains geom name
 
     //determine layer styles (either a function returning style or a style object)
-    var layerStyle = layer.style;
+    var layerStyle = entry.style;
     var mouseoverStyle = {
       fillOpacity: 0.2
     };
-    var selectedStyle = layer.selectedStyle || {
+    var selectedStyle = entry.selectedStyle || {
       //fillOpacity: 0.5
       //dashArray: '',
       opacity: 1,
@@ -216,7 +216,7 @@ export default class LeafletWrapper {
       //color: '#E2E600',
       weight: 4
     };
-    console.log(options); //custom styles passed in options --this will bypass default style and styled specified in layer data
+    //console.log(options); //custom styles passed in options --this will bypass default style and styled specified in layer data
     if (typeof options != 'undefined') {
       if (options.style)
         layerStyle = options.style; //using function or style object
@@ -316,7 +316,7 @@ export default class LeafletWrapper {
 
           //finally run geom selected call back 
           if (typeof scope.onGeomSelected == 'function') {
-            scope.onGeomSelected.call(scope, feature, scope.selectedLayers); //pass selected feature as an argument
+            scope.onGeomSelected.call(scope, feature, scope.selectedLayers, entry); //pass selected feature as an argument
           }
         });
         layer.on('mouseover', function(e) {
@@ -335,7 +335,7 @@ export default class LeafletWrapper {
           $('#hoverOverlay').text(area)
 
           if (typeof scope.onFeatureMouseover == 'function')
-            scope.onFeatureMouseover(layer);
+            scope.onFeatureMouseover(layer, entry);
         });
         layer.on('mouseout', function(e) {
           var layerGroup = mapViewer.getGeoJsonGroup();
@@ -352,7 +352,7 @@ export default class LeafletWrapper {
           //show text on the hover box
           scope.updateHoverText();
           if (typeof scope.onFeatureMouseout == 'function')
-            scope.onFeatureMouseout(layer);
+            scope.onFeatureMouseout(layer, entry);
         });
       }
     });
