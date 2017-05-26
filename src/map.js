@@ -58,7 +58,8 @@ export default class LeafletWrapper {
     this.selectedFeature = null;
     this.selectedFeatureName = '';
     this.selectedLayers = [];
-    this.singleSelect = typeof(this.singleSelect == 'undefined') ? false : this.singleSelect;
+    if (typeof this.singleSelect == 'undefined')
+      this.singleSelect = false;//default to false (multiselect mode)
     this.mapParams = {};
     this.showMarkers = true;
     this.clusterMarkerCache = [];
