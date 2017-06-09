@@ -488,7 +488,7 @@ export default class LeafletWrapper {
         };
     }
     //select geometry by name
-  selectGeom(featureNames, selectStyle) {
+  selectGeom(featureNames, selectStyle, nameField='NAME') {
     var scope = this;
     var mapViewer = this.mapViewer;
     var geoJsonGrp = mapViewer.getGeoJsonGroup();
@@ -505,7 +505,7 @@ export default class LeafletWrapper {
         feature = layer.feature;
         if (typeof feature != 'undefined') {
           //console.log(feature);
-          if (feature.properties.name.toLowerCase() == f.toLowerCase()) {
+          if (feature.properties[nameField].toLowerCase() == f.toLowerCase()) {
             //found the feature, now select it
             layer.setStyle(style);
             //keep up with last selected feature
@@ -518,8 +518,8 @@ export default class LeafletWrapper {
       //show text on the hover box
       scope.updateHoverText();
       //select fetures with the attributes specified..to be implemented
-      if (typeof this.onGeomSelected == 'function')
-        this.onGeomSelected.call(this, feature);
+      // if (typeof scope.onGeomSelected == 'function')
+      //   scope.onGeomSelected.call(scope, feature);
     });
   }
 
