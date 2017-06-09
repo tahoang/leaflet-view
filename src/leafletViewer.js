@@ -14,7 +14,7 @@ export default class LeafletViewer extends MapViewer {
     super(options);
     var min_url = '';
     if (typeof this.minimal == 'undefined')
-      min_url = 'http://{s}.tiles.mapbox.com/v3/esrgc.map-y9awf40v/{z}/{x}/{y}.png';
+      min_url = 'https://{s}.tiles.mapbox.com/v3/esrgc.map-y9awf40v/{z}/{x}/{y}.png';
     else
       min_url = this.minimal;
 

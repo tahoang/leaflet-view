@@ -157,10 +157,7 @@ export default class Choropleth {
     return true;
   }
   redraw () {
-    //        var mapViewer = foodshed.getMapViewer();
-    //        if (typeof mapViewer !== "undefined")
-    //            ;
-    //render legend
+   
   }
 
   //return legend data based on classification (quantile or equal interval)
