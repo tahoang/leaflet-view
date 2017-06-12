@@ -365,23 +365,23 @@ export default class LeafletWrapper {
         return layer;
     }
   }
-  renderControls() {
+  addZoomToExtent() {
     var scope = this;
-    var data = this.mapData;
+    // var data = this.mapData;
     // console.log(data);
-    var template = Handlebars.compile($(this.mapControlsTemplate).html());
-    var html = template({
-      models: data
-    });
-    this.$('div.leaflet-bottom.leaflet-left').html(html);
-    //wire layer controls events
-    this.$('.overlays div.layers').on('click', function(e) {
-      scope.mapControlClick.call(scope, e); //call callback in this view context
-    });
-    //hover box
-    this.$('div.leaflet-top.leaflet-right').append(
-      '<div id="hoverOverlay" class="layerToggle" style="display: block;"></div>'
-    );
+    // var template = Handlebars.compile($(this.mapControlsTemplate).html());
+    // var html = template({
+    //   models: data
+    // });
+    // this.$('div.leaflet-bottom.leaflet-left').html(html);
+    // //wire layer controls events
+    // this.$('.overlays div.layers').on('click', function(e) {
+    //   scope.mapControlClick.call(scope, e); //call callback in this view context
+    // });
+    // //hover box
+    // this.$('div.leaflet-top.leaflet-right').append(
+    //   '<div id="hoverOverlay" class="layerToggle" style="display: block;"></div>'
+    // );
     //zoom to extent - insert the zoom to extent button to the 2 zoom in/out buttons
     this.$('div.leaflet-top.leaflet-left .leaflet-control-zoom-in').after([
       ' <a class="leaflet-control-zoom-out" id="zoomToExtent"',
