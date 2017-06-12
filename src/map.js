@@ -383,14 +383,14 @@ export default class LeafletWrapper {
     //   '<div id="hoverOverlay" class="layerToggle" style="display: block;"></div>'
     // );
     //zoom to extent - insert the zoom to extent button to the 2 zoom in/out buttons
-    this.$('div.leaflet-top.leaflet-left .leaflet-control-zoom-in').after([
+    $('div.leaflet-top.leaflet-left .leaflet-control-zoom-in').after([
       ' <a class="leaflet-control-zoom-out" id="zoomToExtent"',
       ' href="#" title="Zoom to Full-extent">',
       '<i class="fa fa-globe"></i>',
       '</a>'
     ].join(''));
     //zoom to extent button
-    this.$('#zoomToExtent').on('click', function(e) {
+    $('#zoomToExtent').on('click', function(e) {
       scope.mapViewer.zoomToGeoJsonFeatures(); //zoom to extent of current geojson layer
       return false;
     });
