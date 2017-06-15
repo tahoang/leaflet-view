@@ -120,6 +120,8 @@ export default class Choropleth {
     for (i in data) {
       var dataEntry = data[i];
       var value = Math.round(dataEntry[fieldName] * 100) / 100;
+      if(isNaN(value))
+        value = 0;
       valueArray.push(value);
     }
    
@@ -143,7 +145,7 @@ export default class Choropleth {
     var equalInterval = [];
 
     var step = Math.ceil(range / this._thematicObj.numClasses);
-    //JOHN
+    
     var rangeStartVal = Math.floor(minVal);
     equalInterval.push(rangeStartVal); //1st range start
     for (var i = 1; i < this._thematicObj.numClasses; i++) {
