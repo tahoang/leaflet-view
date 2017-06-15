@@ -356,6 +356,8 @@ export default class LeafletWrapper {
         });
       }
     });
+
+    return mapViewer.getGeoJsonGroup();
   }
   getLayer(name) {
     for (var i in this.mapData) {
