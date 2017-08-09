@@ -394,8 +394,8 @@ export default class LeafletWrapper {
     //zoom to extent button
     $('#zoomToExtent').on('click', function(e) {
       scope.mapViewer.zoomToGeoJsonFeatures(); //zoom to extent of current geojson layer
-      if(typeof this.onZoomToExtent == 'function')
-        this.onZoomToExtent(scope.mapViewer);
+      if(typeof scope.onZoomToExtent == 'function')
+        scope.onZoomToExtent(scope.mapViewer);
       return false;
     });
   }
