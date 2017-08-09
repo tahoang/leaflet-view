@@ -15,7 +15,7 @@ onGeomSelected -- fired when mouse clicked layer (geometry)
 onFeatureMouseover -- fired when mouse is over a layer (geometry)
 onFeatureMouseout -- fired when mouse is out of a layer (geometry)
 onMapMoveend --fired when map is moved to a new center
-
+onZoomToExtent --fired when zoom to extent button clicked (passed in mapviewer as a param)
 setMapClickMode -- set selection mode (single or multi)
 
 options:
