@@ -526,8 +526,8 @@ export default class LeafletWrapper {
       //   scope.onGeomSelected.call(scope, feature);
     });
   }
-
-  addClusterMarkers(data, popupTemplate) {
+  //add cluster using json data or geojson data
+  addClusterMarkers(data, popupTemplate, type = 'json') {
     var mapViewer = this.mapViewer;
     mapViewer.clearClusterMarkers(); //clear current clustermakers
     if (typeof data == 'undefined')
@@ -543,14 +543,24 @@ export default class LeafletWrapper {
     if (!this.showMarkers)
       return;
 
-
-    //add new cluster markers
-    _.each(data, function(d) {
-      var m = mapViewer.createMarker(d.y_coord, d.x_coord, {});
-      m.bindPopup(d.template, {});
-      mapViewer.addClusterMarker(m);
-    });
-
+    if(type == 'json') {
+      //add new cluster markers
+      _.each(data, function(d) {
+        let template = typeof popupTemplate == 'undefined'? d.template : popupTemplate;
+        var m = mapViewer.createMarker(d.y_coord, d.x_coord, {});
+        m.bindPopup(template, {});
+        mapViewer.addClusterMarker(m);
+      });
+    }
+    else {
+      //geojson
+      mapviewer.addClusterGeoJson(data, {
+        onEachFeature: (feature, layer) => {
+          let properties = feature.properties;
+          layer.bindPopup(L.Util.template(popupTemplate, properties));
+        }
+      });
+    }
   }
 
   clearClusterMarkers() {
