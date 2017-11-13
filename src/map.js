@@ -552,7 +552,7 @@ export default class LeafletWrapper {
         mapViewer.addClusterMarker(m);
       });
     }
-    else {
+    else if(type == 'geojson'){
       //geojson
       mapviewer.addClusterGeoJson(data, {
         onEachFeature: (feature, layer) => {
@@ -561,6 +561,7 @@ export default class LeafletWrapper {
         }
       });
     }
+    else {console.log('Not supported data type. Use "geojson/json"');}
   }
 
   clearClusterMarkers() {
