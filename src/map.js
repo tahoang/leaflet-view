@@ -562,6 +562,8 @@ export default class LeafletWrapper {
       });
     }
     else {console.log('Not supported data type. Use "geojson/json"');}
+
+    return this.clusterGroup;
   }
 
   clearClusterMarkers() {
