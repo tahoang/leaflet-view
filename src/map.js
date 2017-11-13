@@ -554,7 +554,7 @@ export default class LeafletWrapper {
     }
     else if(type == 'geojson'){
       //geojson
-      mapviewer.addClusterGeoJson(data, {
+      mapViewer.addClusterGeoJson(data, {
         onEachFeature: (feature, layer) => {
           let properties = feature.properties;
           layer.bindPopup(L.Util.template(popupTemplate, properties));
