@@ -509,7 +509,7 @@ export default class LeafletWrapper {
         feature = layer.feature;
         if (typeof feature != 'undefined') {
           //console.log(feature);
-          if (feature.properties[nameField].toLowerCase() == f.toLowerCase()) {
+          if (feature.properties[nameField].toString().toLowerCase() == f.toLowerCase()) {
             //found the feature, now select it
             layer.setStyle(style);
             //keep up with last selected feature
@@ -523,7 +523,7 @@ export default class LeafletWrapper {
       scope.updateHoverText();
       //select fetures with the attributes specified..to be implemented
       if (typeof scope.onGeomSelected == 'function')
-        scope.onGeomSelected.call(scope, scope.selectedLayers);
+        scope.onGeomSelected.call(scope, null, scope.selectedLayers);
     });
   }
   //add cluster using json data or geojson data
