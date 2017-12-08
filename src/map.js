@@ -522,8 +522,8 @@ export default class LeafletWrapper {
       //show text on the hover box
       scope.updateHoverText();
       //select fetures with the attributes specified..to be implemented
-      // if (typeof scope.onGeomSelected == 'function')
-      //   scope.onGeomSelected.call(scope, feature);
+      if (typeof scope.onGeomSelected == 'function')
+        scope.onGeomSelected.call(scope, feature);
     });
   }
   //add cluster using json data or geojson data
