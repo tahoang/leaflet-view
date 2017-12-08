@@ -492,7 +492,7 @@ export default class LeafletWrapper {
         };
     }
     //select geometry by name
-  selectGeom(featureNames, selectStyle, nameField='NAME') {
+  selectGeom(featureNames, selectStyle, nameField='NAME', invoke=false) {
     var scope = this;
     var mapViewer = this.mapViewer;
     var geoJsonGrp = mapViewer.getGeoJsonGroup();
@@ -522,7 +522,7 @@ export default class LeafletWrapper {
       //show text on the hover box
       scope.updateHoverText();
       //select fetures with the attributes specified..to be implemented
-      if (typeof scope.onGeomSelected == 'function')
+      if (typeof scope.onGeomSelected == 'function' && invoke)
         scope.onGeomSelected.call(scope, null, scope.selectedLayers);
     });
   }
