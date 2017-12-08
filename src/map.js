@@ -525,6 +525,7 @@ export default class LeafletWrapper {
       if (typeof scope.onGeomSelected == 'function' && invoke)
         scope.onGeomSelected.call(scope, null, scope.selectedLayers);
     });
+    // return scope.selectedLayers;
   }
   //add cluster using json data or geojson data
   addClusterMarkers(data, popupTemplate, type = 'json') {
