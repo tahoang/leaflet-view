@@ -523,7 +523,7 @@ export default class LeafletWrapper {
       scope.updateHoverText();
       //select fetures with the attributes specified..to be implemented
       if (typeof scope.onGeomSelected == 'function')
-        scope.onGeomSelected.call(scope, feature);
+        scope.onGeomSelected.call(scope, scope.selectedLayers);
     });
   }
   //add cluster using json data or geojson data
