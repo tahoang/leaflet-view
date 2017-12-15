@@ -528,7 +528,7 @@ export default class LeafletWrapper {
     // return scope.selectedLayers;
   }
   //add cluster using json data or geojson data
-  addClusterMarkers(data, popupTemplate, type = 'json') {
+  addClusterMarkers(data, popupTemplate, type = 'json', onClick) {
     var mapViewer = this.mapViewer;
     mapViewer.clearClusterMarkers(); //clear current clustermakers
     if (typeof data == 'undefined')
@@ -559,6 +559,8 @@ export default class LeafletWrapper {
         onEachFeature: (feature, layer) => {
           let properties = feature.properties;
           layer.bindPopup(L.Util.template(popupTemplate, properties));
+          if(typeof onCLick == 'function')
+            layer.on('click', onClick);
         }
       });
     }
