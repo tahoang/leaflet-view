@@ -559,7 +559,7 @@ export default class LeafletWrapper {
         onEachFeature: (feature, layer) => {
           let properties = feature.properties;
           layer.bindPopup(L.Util.template(popupTemplate, properties));
-          if(typeof onCLick == 'function')
+          if(typeof onClick == 'function')
             layer.on('click', onClick);
         }
       });
