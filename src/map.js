@@ -97,6 +97,7 @@ export default class LeafletWrapper {
       el: this.el,
       center: center, //salisbury coordinates
       zoomLevel: this.zoomLevel || 10,
+      minZoom: this.minZoom,
       scrollZoom: true,
       clusterOptions: {
         showCoverageOnHover: false,
