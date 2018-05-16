@@ -50,7 +50,8 @@ export default class LeafletViewer extends MapViewer {
       ],
       center: this.center || new L.LatLng(39.0, -76.70),
       zoom: this.zoomLevel || 7,
-      minZoom: this.minZoom || '*'
+      minZoom: this.minZoom || '*',
+      maxZoom: this.maxZoom || '*',
       scrollWheelZoom: this.scrollZoom || false
     });
 
