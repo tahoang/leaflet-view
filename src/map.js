@@ -369,7 +369,7 @@ export default class LeafletWrapper {
         return layer;
     }
   }
-  addZoomToExtent() {
+  addZoomToExtent(iconContent) {
     var scope = this;
     // var data = this.mapData;
     // console.log(data);
@@ -386,11 +386,15 @@ export default class LeafletWrapper {
     // this.$('div.leaflet-top.leaflet-right').append(
     //   '<div id="hoverOverlay" class="layerToggle" style="display: block;"></div>'
     // );
+
+    if(typeof iconContent == 'undefined')
+      iconContent = '<i class="fa fa-globe"></i>';
+
     //zoom to extent - insert the zoom to extent button to the 2 zoom in/out buttons
     $('div.leaflet-top.leaflet-left .leaflet-control-zoom-in').after([
       ' <a class="leaflet-control-zoom-out" id="zoomToExtent"',
       ' href="#" title="Zoom to Full-extent">',
-      '<i class="fa fa-globe"></i>',
+      iconContent,
       '</a>'
     ].join(''));
     //zoom to extent button
