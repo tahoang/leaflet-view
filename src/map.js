@@ -34,6 +34,7 @@ import 'leaflet.markercluster';
 
 import LeafletViewer from './leafletViewer.js';
 import _ from 'lodash';
+import $ from 'jquery';
 
 export default class LeafletWrapper {
   constructor(options) {

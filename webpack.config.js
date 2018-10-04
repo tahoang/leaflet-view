@@ -24,10 +24,7 @@ module.exports = (env, argv) => {
     },
     output: {
       libraryTarget: 'umd',
-      library: {
-        commonjs: 'dashboard-react-components',
-        root: 'dashboard-react-components'
-      },
+      library: 'leaflet-view',
       filename: '[name].js',
       // chunkFilename: '[name].chunk.js',
       path: path.resolve(__dirname, './dist')
@@ -37,7 +34,8 @@ module.exports = (env, argv) => {
     // externals: [nodeExternals()],
     externals: {
       leaflet: 'leaflet',
-      lodash: 'lodash'
+      lodash: 'lodash',
+      jquery: 'jquery'
     },
     // optimization: {
     //    splitChunks: {
