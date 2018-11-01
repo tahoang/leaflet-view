@@ -565,7 +565,10 @@ export default class LeafletWrapper {
       mapViewer.addClusterGeoJson(data, {
         onEachFeature: (feature, layer) => {
           let properties = feature.properties;
-          layer.bindPopup(L.Util.template(popupTemplate, properties));
+          if(typeof popupTemplate == 'string')
+            layer.bindPopup(L.Util.template(popupTemplate, properties));
+          else if(typeof popupTemplate == 'function')
+            layer.bindPopup(popupTemplate(properties));
           if(typeof onClick == 'function')
             layer.on('click', onClick);
         }
